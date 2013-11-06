@@ -296,7 +296,7 @@ topbar -->
       br([]),
       % <input type="text" id="doData" />
       % <input type="button" id="do" value="do" />
-      div(id=result)
+      div(id=result, [])
     ])
   ).
 
