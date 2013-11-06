@@ -2,11 +2,8 @@
 
 :- use_module(library(dotcloud)).
 
-:- http_handler(/, hello, [priority(-100)]).
-
 main(_) :-
-    server('WWW').
+  server('WWW').
 
-hello(_Request) :-
-    format('Content-type: text/plain~n~n'),
-    format('Hello Prolog, from dotCloud!~n').
+:- ensure_loaded(load).
+
