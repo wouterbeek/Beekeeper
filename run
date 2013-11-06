@@ -3,7 +3,7 @@
 :- use_module(library(dotcloud)).
 
 main(_) :-
-  server('WWW').
-
-:- ensure_loaded(load).
+  ensure_loaded(load),
+  app_server:start_app_server.
+  %server('WWW').
 
