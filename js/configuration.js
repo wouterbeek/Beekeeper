@@ -9,7 +9,7 @@ var config = {
 	easy_setyp: false,
 	skipLoadScreen: false,
 	connectOnLoad: true,
-	requestDatasetsOnLoad: false,
+	requestNamespacesOnLoad: false,
 	monitorEnabled: true,
 	visualizationEnabled: true,
 	staticGraph: false,

@@ -15,6 +15,7 @@ The Web interface for the beekeeper project.
 :- use_module(library(http/http_dispatch)).
 :- use_module(library(http/http_path)).
 :- use_module(library(http/http_server_files)).
+:- use_module(library(http/http_session)).
 :- use_module(server(app_server)).
 :- use_module(server(web_modules)).
 
@@ -201,18 +202,18 @@ data -->
   html(
     div(id=data, [
       form([class='pure-form',id=input], [
-        legend('Graph contents'),
-        fieldset(class='pure-group',
+        fieldset(class='pure-group', [
+          legend('Graph contents'),
           textarea([cols='60',id=inputN3,rows='4'], Content)
-        ),
-        legend('Auto generate'),
+        ]),
         fieldset([class='pure-group',id=generateOptions], [
+          legend('Auto generate'),
           button([class='pure-button',id=generate], 'Generate Graph'),
           input([style='display:inline-block;',id=triplesToGenerate,placeholder='50',type=text]),
           button([class='pure-button',id=generateData], 'Randomly Generate Data')
         ]),
-        legend('Namespaces'),
         fieldset(class='pure-group', [
+          legend('Namespaces'),
           input([style='display:inline-block;',id=namespaceToAdd,placeholder='Namespace URI',type=text]),
           button([class='pure-button',id=addNamespace], 'Add namespace')
         ]),
@@ -233,26 +234,25 @@ options -->
   html(
     div(id=all_options,
       form(class=['pure-form','pure-form-aligned'], [
-        legend('Username'),
-        fieldset(class='pure-group',
-          input([style='display:inline-block;',id=userID,placeholder='Username',type=text])
-        ),
-        legend('Experiment'),
         fieldset(class='pure-group', [
+          legend('Username'),
+          label(id=userID, '')
+        ]),
+        fieldset(class='pure-group', [
+          legend('Experiment'),
           button([class='pure-button',id=loadExperiment],'Load Experiment'),
           button([class='pure-button',id=saveExperiment], 'Save Experiment Data'),
           button([class='pure-button',id=saveFile], 'Save Graph to File')
         ]),
-        legend('Add a namespace to hosted datasets list'),
         fieldset(class='pure-group', [
-          %input([style='display:inline-block;',id=dataset,placeholder='Dataset URL',type=text]),
-          select([style='display:inline-block;',id=datasets,name=datasets]),
-          button([class='pure-button',id=addDataset], 'Add'),
-          button([class='pure-button',id=removeDataset], 'Remove'),
-          button([class='pure-button',id=currentDatasets], 'Current hosted datasets list')
+          legend('Hosted namespaces'),
+          select([style='display:inline-block;',id=namespaces,name=namespaces], []),
+          button([class='pure-button',id=addNamespace], 'Add'),
+          button([class='pure-button',id=removeNamespace], 'Remove'),
+          button([class='pure-button',id=currentNamespaces], 'Currently hosted namespaces')
         ]),
-        legend('On startup'),
         fieldset(class='pure-group', [
+          legend('On startup'),
           label([class='pure-checkbox',for=skipOptions], [
             input([id=skipOptions,style='display:inline;margin-right:7.5px;top:0;',type=checkbox]),
             'Skip this screen on startup'
@@ -261,13 +261,13 @@ options -->
             input([id=connectOnLoad,style='display:inline;margin-right:7.5px;top:0;',type=checkbox]),
             'Automatically connect to friends'
           ]),
-          label([class='pure-checkbox',for=requestDatasetsOnLoad], [
-            input([id=requestDatasetsOnLoad,style='display:inline;margin-right:7.5px;top:0;',type=checkbox]),
-              'Automatically request a hosted datasets list after connecting'
+          label([class='pure-checkbox',for=requestNamespacesOnLoad], [
+            input([id=requestNamespacesOnLoad,style='display:inline;margin-right:7.5px;top:0;',type=checkbox]),
+              'Automatically request a hosted namespaces after connecting'
           ])
         ]),
-        legend('On exit'),
         fieldset(class='pure-group', [
+          legend('On exit'),
           label([class='pure-checkbox',for=configLocalStorage], [
             input([id=configLocalStorage,style='display:inline;margin-right:7.5px;top:0;',type=checkbox]),
             'Save configuration to local storage'
@@ -281,13 +281,13 @@ options -->
             'Save graph(s) to local storage'
           ])
         ]),
-        legend('Algorithm'),
-        fieldset(class='pure-group',
+        fieldset(class='pure-group', [
+          legend('Algorithm'),
           label([class='pure-checkbox',for=linksetsEnabled], [
             input([id=linksetsEnabled,style='display:inline;margin-right:7.5px;top:0;',type=checkbox]),
             'Linksets enabled'
           ])
-        ),
+        ]),
         legend('User Interface'),
         fieldset(class='pure-group',
           label([class='pure-checkbox',for=monitorEnabled], [
@@ -295,8 +295,8 @@ options -->
             'Show monitor'
           ])
         ),
-        legend('Visualization'),
         fieldset(class='pure-group', [
+          legend('Visualization'),
           label([class='pure-checkbox',for=visEnabled], [
             input([id=visEnabled,style='display:inline;margin-right:7.5px;top:0;',type=checkbox]),
             'Show visualization'
@@ -314,8 +314,8 @@ options -->
             'Static graph'
           ])
         ]),
-        legend('Cycles'),
         fieldset(class='pure-group', [
+          legend('Cycles'),
           label(for=staticGraphIterations, 'Number of calculation cycles: '),
           input([
             class=visOption,
@@ -324,7 +324,10 @@ options -->
             type=text,
             value='1000'
           ])
-        ])
+        ]),
+        fieldset(class='pure-group',
+          button([class=['pure-button','pure-button-primary'],id=confirm], 'Confirm')
+        )
       ])
     )
   ).
@@ -363,6 +366,10 @@ connections -->
     div([class='pure-u',id=connections],
       form(class='pure-form', [
         fieldset(class='pure-group', [
+          legend('Owner'),
+          label(id=ownerID, '')
+        ]),
+        fieldset(class='pure-group', [
           legend('Connect'),
           input([style='display:inline-block;',id=connectID,placeholder='Connect to user ID',type=text]),
           button([class='pure-button',id=connect], 'Connect')
@@ -375,7 +382,7 @@ connections -->
         ]),
         fieldset(class='pure-group', [
           legend('Request'),
-          button([class='pure-button',id=requestHostedDatasets], 'Request hosted datasets'),
+          button([class='pure-button',id=requestHostedNamespaces], 'Request hosted namespaces'),
           button([class='pure-button',id=sendScouts], 'Send scouts')
         ]),
         fieldset([class='pure-group',id=algorithmControls], [

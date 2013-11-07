@@ -5,8 +5,8 @@ var easy_setup = (function() {
     config.skipLoadScreen = true;
     $('#skipOptions').get(0).checked = config.skipLoadScreen;
     
-    config.requestDatasetsOnLoad = true;
-    $('#requestDatasetsOnLoad').get(0).checked = config.requestDatasetsOnLoad;
+    config.requestNamespacesOnLoad = true;
+    $('#requestNamespacesOnLoad').get(0).checked = config.requestNamespacesOnLoad;
     
     $('#namespaceToAdd').val(config.ownerID);
     $('#addNamespace').click();

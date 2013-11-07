@@ -81,15 +81,17 @@
   color: #FFFFFF;
 }
 
-#topbar {
-  width: 100%;
-}
-
 #saveFile             { display: none; }
 #saveExperiment       { display: none; }
 
 #showOptions, #hideOptions { float: right; }
-#ownerID              { padding: 15px 5px; font-weight: bold; color: #fff; }
+
+#ownerID {
+  color: #fff;
+  padding: 15px 5px;
+  font-weight: bold;
+}
+
 #friendsList          { margin: 10px; }
 div.friend            { font-weight: bold; color: #999; cursor: pointer; }
 span.name             { color: red; }
@@ -116,7 +118,7 @@ text.RDFlinkTarget    { fill: grey; }
 
 circle.bee            { fill: brown; stroke: red; }
 
-/* toggle classes friendslist */
+/* toggle classes friendsList */
 span.block            { color: #000; }
 span.selected         { background: #000; }
 span.connected        { color: green; }
@@ -129,3 +131,4 @@ circle.scout          { fill: red; }
 circle.forager        { stroke: blue; }
 circle.nurse          { stroke-width: 4px; }
 circle.RDFlink        { /*some style for RDF link targets*/ }
+

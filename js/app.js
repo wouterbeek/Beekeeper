@@ -26,7 +26,7 @@ $(function () {
 
   p2p.setup(config.ownerID);
   $('#ownerID').html(config.ownerID);
-  $('#userID').val(config.ownerID);
+  $('#userID').html(config.ownerID);
   
   m.when('p2p:ownOpen', function(id) {
     // If Connect On Load enabled, wait for 'connection with friend open' callback before connecting to the next
@@ -44,7 +44,7 @@ $(function () {
         if (CONindex < CONfriends.length) p2p.connect(CONfriends[CONindex++]);
         if (config.easy_setup && CONindex == CONfriends.length) {
           selectAllFriends();
-          p2p.send('requestHostedDatasets');
+          p2p.send('requestHostedNamespaces');
           sendScouts();
           deselectAllFriends();
         }
@@ -62,14 +62,14 @@ $(function () {
   // load options
   $('#skipOptions').get(0).checked = config.skipLoadScreen;
   $('#connectOnLoad').get(0).checked = config.connectOnLoad;
-  $('#requestDatasetsOnLoad').get(0).checked = config.requestDatasetsOnLoad;
+  $('#requestNamespacesOnLoad').get(0).checked = config.requestNamespacesOnLoad;
   $('#configLocalStorage').get(0).checked = config.saveConfigToLocalStorage;
   $('#graphlocalstorage').get(0).checked = config.saveGraphToLocalStorage;
   $('#linksetsEnabled').get(0).checked = config.linksetsEnabled;
   $('#visEnabled').get(0).checked = config.visualizationEnabled;
   
   for (var i = 0, l = config.namespaces.length; i < l; i++) {
-    $('#datasets').append($('<option value="' + config.namespaces[i] + '">' + config.namespaces[i] + '</option>'));
+    $('#namespaces').append($('<option value="' + config.namespaces[i] + '">' + config.namespaces[i] + '</option>'));
     dataGenerator.addNamespace(config.namespaces[i]);
   }
 
@@ -337,7 +337,7 @@ m.when('swm:fgrsSentTo', function(foragers, receiver) {
 });
 
 m.when('swm:sctFound', function(data) {
-  // connect to data.owner IF not already on friendslist (could be migrated via other peer)
+  // connect to data.owner IF not already on friendsList (could be migrated via other peer)
   //  THEN send message first saying 'new peer connected, wants to send your scout back'.
   // TODO: remove scout
   p2p.connect(data.owner);
@@ -372,7 +372,7 @@ m.when('rdf:initialized', function(data) {
       var reservedNamespaces = ['http://www.w3.org/2000/01/rdf-schema', 'http://www.w3.org/1999/02/22-rdf-syntax-ns', 'http://www.w3.org/2002/07/owl'];
       if (config.namespaces.indexOf(baseURI) == -1 && reservedNamespaces.indexOf(baseURI) == -1) {
         config.namespaces.push(baseURI);
-        $('#datasets').append($('<option value="' + baseURI + '">' + baseURI + '</option>'));
+        $('#namespaces').append($('<option value="' + baseURI + '">' + baseURI + '</option>'));
       }
     });
     m.when('rdf:edgeNew', function(data) {
@@ -432,20 +432,20 @@ function setMonitorEnabled(value) {
   $('#history').css('display', value ? 'block' : 'none');
 }
 
-function addToHosts(uri) {
+function addToHostedNamespaces(uri) {
   if (config.hosts.indexOf(uri) == -1) {
     config.hosts.push(uri);
-    monitor(uri + ' added to hosted datasets list.');
+    monitor(uri + ' added to hosted namespaces list.');
     return uri;
   } else {
     return null;
   }
 }
 
-function removeFromHosts(uri) {
+function removeFromHostedNamespaces(uri) {
   if (config.hosts.indexOf(uri) != -1) {
     config.hosts.splice(config.hosts.indexOf(uri), 1);
-    monitor(uri + ' removed from hosted datasets list.');
+    monitor(uri + ' removed from hosted namespaces list.');
     return uri;
   } else {
     return null;
@@ -467,7 +467,7 @@ function addFriend(id, hosts) {
     deselectAllFriends();
     
     selectFriend(id);
-    p2p.send('requestHostedDatasets');
+    p2p.send('requestHostedNamespaces');
     sendScouts();
     deselectFriend(id);
   }
@@ -506,7 +506,7 @@ function removeFriend(id) {
   }
 
   //
-  // if ($('.friendslist').length === 0) {
+  // if ($('.friendsList').length === 0) {
   //   $('.filler').show();
   // }
 }
@@ -558,7 +558,7 @@ m.when('p2p:conn', function(data) {
 
   if (config.easy_setup) {
     // alert('sending scouts');
-    p2p.send('requestHostedDatasets');
+    p2p.send('requestHostedNamespaces');
     sendScouts();
   }
 });
@@ -580,8 +580,8 @@ m.when('p2p:close', function(data) {
 m.when('p2p:data', processIncomingMessage);
 
 var protocol = {
-  'requestHostedDatasets': sendHostedDatasets,
-  'hostedDatasets': addHostedDatasets,
+  'requestHostedNamespaces': sendHostedNamespaces,
+  'hostedNamespaces': addHostedNamespaces,
   'requestIdsForDataset': sendIdsForDataset,
   'requestNodesList': sendNodesList,
   'nodesList': addNodesList,
@@ -617,19 +617,19 @@ function processIncomingMessage(data) {
 
 
 // TODO: in seperate 'actions' file?
-function sendHostedDatasets(data) {
-  var accept = true; //confirm('Share which datasets you host with ' + data.sender + '?');
+function sendHostedNamespaces(data) {
+  var accept = true; //confirm('Share which namespaces you host with ' + data.sender + '?');
   if (accept && config.hosts) {
-    monitor('Send information about my hosted datasets to ' + data.sender + '.');
-    p2p.send('hostedDatasets', config.hosts, data.sender);
+    monitor('Send information about my hosted namespaces to ' + data.sender + '.');
+    p2p.send('hostedNamespaces', config.hosts, data.sender);
   } else {
     // p2p.send('requestDenied', '', data.sender); ?
   }
 }
 
-function addHostedDatasets(data) {
-  monitor('Received information about hosted datasets from ' + data.sender + '.');
-  console.log('received hosted datasets list:');
+function addHostedNamespaces(data) {
+  monitor('Received information about hosted namespaces from ' + data.sender + '.');
+  console.log('received hosted namespaces list:');
   console.log(data.message);
   config.friends[data.sender]['hosts'] = data.message;
 

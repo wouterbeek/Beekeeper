@@ -95,8 +95,8 @@ $(function () {
     config.connectOnLoad = $(this).is(':checked');
   });
 
-  $('#requestDatasetsOnLoad').click(function() {
-    config.requestDatasetsOnLoad = $(this).is(':checked');
+  $('#requestNamespacesOnLoad').click(function() {
+    config.requestNamespacesOnLoad = $(this).is(':checked');
   });
 
   $('#configLocalStorage').click(function() {
@@ -147,28 +147,28 @@ $(function () {
 
     // p2p.send('requestIdsForNode', $('#doData').val());
 
-    // addToHosts($('#doData').val());
-    // removeFromHosts($('#doData').val());
+    // addToHostedNamespaces($('#doData').val());
+    // removeFromHostedNamespaces($('#doData').val());
 
     // saveAsFile($('#doData').val(), 'Some content\non multiple lines.');
   });
 
-  $('#addDataset').click(function() {
-    if ($('#datasets').val() != '') {
-      addToHosts($('#datasets').val());
+  $('#addNamespace').click(function() {
+    if ($('#namespaces').val() != '') {
+      addToHostedNamespaces($('#namespaces').val());
     }
   });
 
-  $('#removeDataset').click(function() {
-    if ($('#datasets').val() != '') {
-      removeFromHosts($('#datasets').val());
+  $('#removeNamespace').click(function() {
+    if ($('#namespaces').val() != '') {
+      removeFromHostedNamespaces($('#namespaces').val());
     }
   });
 
-  $('#currentDatasets').click(function() {
-    var datasets = config.hosts.join('\n');
-    if (datasets == '') datasets = '(no datasets)';
-    alert('Hosted Datasets:\n' + datasets);
+  $('#currentNamespaces').click(function() {
+    var namespaces = config.hosts.join('\n');
+    if (namespaces == '') namespaces = '(no namespaces)';
+    alert('Hosted namespaces:\n' + namespaces);
     console.log(config.hosts);
   });
 
@@ -191,8 +191,8 @@ $(function () {
   //   p2p.send('requestNodesList');
   // });
 
-  $('#requestHostedDatasets').click(function() {
-    p2p.send('requestHostedDatasets');
+  $('#requestHostedNamespaces').click(function() {
+    p2p.send('requestHostedNamespaces');
   });
 
   $('#sendScouts').click(function() {
