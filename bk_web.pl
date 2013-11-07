@@ -135,11 +135,15 @@ user:body(bk_style, _Content) -->
     body([
       div(class='pure-g-r',
         div([class='pure-u-1',id=pull], [
-          div(id=pull_content, \pull_content),
-          div(id=pull_button1, button(class='pure-button','▲ Options')),
-          div(id=pull_button2, button(class='pure-button','▲ Data')),
-          div(id=pull_button3, button(class='pure-button','▲ Logs')),
-          div(id=pull_button4, button(class='pure-button','▲ Connections'))
+          div(class=['pure-menu','pure-menu-open','pure-menu-horizontal'],
+            ul([
+              li(id=pull_button1, button(class='pure-button', '▲ Options')),
+              li(id=pull_button2, button(class='pure-button', '▲ Data')),
+              li(id=pull_button3, button(class='pure-button', '▲ Logs')),
+              li(id=pull_button4, button(class='pure-button', '▲ Connections'))
+            ])
+          ),
+          \pull_content
         ])
       ),
       div(class='pure-g-r', div([class='pure-u-1',id=graph], [])),
@@ -151,10 +155,10 @@ user:head(bk_style, _Content) -->
   html(
     head([
       title('Beekeeper (DataHives Event 1)'),
-      \html_requires(css('app.css')),
       \html_requires('http://yui.yahooapis.com/pure/0.3.0/pure-min.css'),
       \html_requires('http://purecss.io/combo/1.6.5?/css/main.css&/css/menus.css&/css/rainbow/baby-blue.css'),
-      \html_requires('http://purecss.io/combo/1.6.6?/css/main.css&/css/grids.css&/css/rainbow/baby-blue.css')
+      \html_requires('http://purecss.io/combo/1.6.6?/css/main.css&/css/grids.css&/css/rainbow/baby-blue.css'),
+      \html_requires(css('app.css'))
       %\html_requires(js('app.js')),
       %\html_requires(js('behavior.js')),
       %\html_requires(js('configuration.js')),
@@ -178,10 +182,7 @@ user:head(bk_style, _Content) -->
 % PULL %
 
 pull_content -->
-  options,
-  data,
-  logs,
-  connections.
+  html(div(id=pull_content, [\options,\data,\logs,\connections])).
 
 
 
@@ -200,14 +201,19 @@ data -->
   html(
     div(id=data, [
       form([class='pure-form',id=input], [
-        textarea([cols='60',id=inputN3,rows='4'], Content),
+        legend('Graph contents'),
+        fieldset(class='pure-group',
+          textarea([cols='60',id=inputN3,rows='4'], Content)
+        ),
+        legend('Auto generate'),
         fieldset([class='pure-group',id=generateOptions], [
-          legend('Auto generate'),
           button([class='pure-button',id=generate], 'Generate Graph'),
-          button([class='pure-button',id=cancelGenerate], 'Cancel'),
-          input([class='pure-input-1-2',id=triplesToGenerate,placeholder='50',type=text]),
-          button([class='pure-button',id=generateData], 'Randomly Generate Data'),
-          input([class='pure-input-1-2',id=namespaceToAdd,placeholder='Namespace URI',type=text]),
+          input([style='display:inline-block;',id=triplesToGenerate,placeholder='50',type=text]),
+          button([class='pure-button',id=generateData], 'Randomly Generate Data')
+        ]),
+        legend('Namespaces'),
+        fieldset(class='pure-group', [
+          input([style='display:inline-block;',id=namespaceToAdd,placeholder='Namespace URI',type=text]),
           button([class='pure-button',id=addNamespace], 'Add namespace')
         ]),
         div(class=[fileUpload,'pure-button','pure-button-primary'], [
@@ -229,7 +235,7 @@ options -->
       form(class=['pure-form','pure-form-aligned'], [
         legend('Username'),
         fieldset(class='pure-group',
-          input([class='pure-input-1-2',id=userID,placeholder='Username',type=text])
+          input([style='display:inline-block;',id=userID,placeholder='Username',type=text])
         ),
         legend('Experiment'),
         fieldset(class='pure-group', [
@@ -239,8 +245,8 @@ options -->
         ]),
         legend('Add a namespace to hosted datasets list'),
         fieldset(class='pure-group', [
-          %input([class='pure-input-1-2',id=dataset,placeholder='Dataset URL',type=text]),
-          select([class='pure-input-1-2',id=datasets,name=datasets]),
+          %input([style='display:inline-block;',id=dataset,placeholder='Dataset URL',type=text]),
+          select([style='display:inline-block;',id=datasets,name=datasets]),
           button([class='pure-button',id=addDataset], 'Add'),
           button([class='pure-button',id=removeDataset], 'Remove'),
           button([class='pure-button',id=currentDatasets], 'Current hosted datasets list')
@@ -312,8 +318,9 @@ options -->
         fieldset(class='pure-group', [
           label(for=staticGraphIterations, 'Number of calculation cycles: '),
           input([
-            class=['pure-input-1-2',visOption],
+            class=visOption,
             id=staticGraphIterations,
+            style='display:inline-block;',
             type=text,
             value='1000'
           ])
@@ -357,7 +364,7 @@ connections -->
       form(class='pure-form', [
         fieldset(class='pure-group', [
           legend('Connect'),
-          input([class='pure-input-1-2',id=connectID,placeholder='Connect to user ID',type=text]),
+          input([style='display:inline-block;',id=connectID,placeholder='Connect to user ID',type=text]),
           button([class='pure-button',id=connect], 'Connect')
         ]),
         fieldset(class='pure-group', [

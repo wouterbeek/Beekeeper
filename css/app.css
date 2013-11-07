@@ -32,33 +32,10 @@
   z-index: 2;
 }
 
-#pull_button1 {
-  left: 20%;
-  position: absolute;
-  top: 0%;
-}
-
-#pull_button2 {
-  left: 40%;
-  position: absolute;
-  top: 0%;
-}
-
-#pull_button3 {
-  left: 55%;
-  position: absolute;
-  top: 0%;
-}
-
-#pull_button4 {
-  left: 70%;
-  position: absolute;
-  top: 0%;
-}
-
 #pull_content {
   display: none;
   overflow: auto;
+  text-align: center;
 }
 
 #all_options {
@@ -100,7 +77,7 @@
   width: 95%;
 }
 
-#all_options form legend {
+#pull form legend {
   color: #FFFFFF;
 }
 

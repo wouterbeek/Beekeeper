@@ -91,7 +91,7 @@ $(function () {
       if ($('#options').css('display') != 'none') {
         $('#options').hide();
       } else {
-        hideLoadOptions();
+        hidePullover();
       }
       
       $('#connectID').blur();
@@ -107,7 +107,7 @@ $(function () {
 
       // Toggle data input panel
       if (e.keyCode == 192 || e.keyCode == 73) {  // ~ or I
-        ($('#generateOptions').css('display') == 'none') ? showLoadOptions() : hideLoadOptions();
+        ($('#generateOptions').css('display') == 'none') ? showLoadOptions() : hidePullover();
       }
 
       // Show data input panel and generate random data
@@ -118,7 +118,7 @@ $(function () {
 
       // When data input panel is open, generate graph from the data and close data input panel
       if (e.keyCode == 13 && $('#generateOptions').css('display') != 'none') {  // Enter
-        hideLoadOptions();
+        hidePullover();
         generateGraph($('#inputN3').val());
       }
 
@@ -214,6 +214,7 @@ function loadModule(src, callback) {
 
 function hidePullover() {
   $('#pull').animate({height: 10}, 500);
+  $('#pull').animate({width: 10}, 500);
   $('#pull_content').hide();
   $('#all_options').hide();
   $('#data').hide();
@@ -222,14 +223,10 @@ function hidePullover() {
 }
 
 function showLoadOptions() {
+  $('#pull').animate({width: 600}, 500);
   $('#pull').animate({height: 550}, 500);
   $('#pull_content').show();
   $('#data').show();
-//  $('#sm-1').html('');
-}
-
-function hideLoadOptions() {
-  hidePullover();
 //  $('#sm-1').html('');
 }
 

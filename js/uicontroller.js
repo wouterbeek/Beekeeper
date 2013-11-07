@@ -12,6 +12,7 @@ $(function () {
       hidePullover();
     } else {
       hidePullover();
+      $('#pull').animate({width: 600}, 500);
       $('#pull').animate({height: 1250});
       $('#pull_content').show();
       $('#all_options').show();
@@ -32,6 +33,7 @@ $(function () {
       hidePullover();
     } else {
       hidePullover();
+      $('#pull').animate({width: 600}, 500);
       $('#pull').animate({height: 600});
       $('#pull_content').show();
       $('#logs').show();
@@ -44,18 +46,14 @@ $(function () {
     } else {
       hidePullover();
       $('#pull').animate({height: 600});
+      $('#pull').animate({width: 600}, 500);
       $('#pull_content').show();
       $('#connections').show();
     }
   });
   
   $('#generate').click(function() {
-    hideLoadOptions();
     generateGraph($('#inputN3').val());
-  });
-  
-  $('#cancelGenerate').click(function() {
-    hideLoadOptions();
   });
   
   $('#generateData').click(function() {
