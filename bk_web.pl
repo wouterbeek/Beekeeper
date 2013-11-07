@@ -30,6 +30,10 @@ The Web interface for the beekeeper project.
   ['http://yui.yahooapis.com/pure/0.3.0/pure-min.css']
 ).
 :- html_resource(
+  'http://purecss.io/combo/1.6.6?/css/main.css&/css/grids.css&/css/rainbow/baby-blue.css',
+  ['http://yui.yahooapis.com/pure/0.3.0/pure-min.css']
+).
+:- html_resource(
   css('app.css'), [
   'http://yui.yahooapis.com/pure/0.3.0/pure-min.css',
   'http://purecss.io/combo/1.6.5?/css/main.css&/css/menus.css&/css/rainbow/baby-blue.css'
@@ -129,9 +133,16 @@ bk(_Request):-
 user:body(bk_style, _Content) -->
   html(
     body([
-      div(class='pure-g-r', div(class='pure-u-1', \input)),
-      div(class='pure-g-r', div(class='pure-u-1', \topbar)),
-      div([class='pure-g-r',id=layout],[\left,\right]),
+      div(class='pure-g-r',
+        div([class='pure-u-1',id=pull], [
+          div(id=pull_content, \pull_content),
+          div(id=pull_button1, button(class='pure-button','▲ Options')),
+          div(id=pull_button2, button(class='pure-button','▲ Data')),
+          div(id=pull_button3, button(class='pure-button','▲ Logs')),
+          div(id=pull_button4, button(class='pure-button','▲ Connections'))
+        ])
+      ),
+      div(class='pure-g-r', div([class='pure-u-1',id=graph], [])),
       \at_end
     ])
   ).
@@ -142,7 +153,8 @@ user:head(bk_style, _Content) -->
       title('Beekeeper (DataHives Event 1)'),
       \html_requires(css('app.css')),
       \html_requires('http://yui.yahooapis.com/pure/0.3.0/pure-min.css'),
-      \html_requires('http://purecss.io/combo/1.6.5?/css/main.css&/css/menus.css&/css/rainbow/baby-blue.css')
+      \html_requires('http://purecss.io/combo/1.6.5?/css/main.css&/css/menus.css&/css/rainbow/baby-blue.css'),
+      \html_requires('http://purecss.io/combo/1.6.6?/css/main.css&/css/grids.css&/css/rainbow/baby-blue.css')
       %\html_requires(js('app.js')),
       %\html_requires(js('behavior.js')),
       %\html_requires(js('configuration.js')),
@@ -161,79 +173,64 @@ user:head(bk_style, _Content) -->
     ])
   ).
 
-left -->
+
+
+% PULL %
+
+pull_content -->
+  options,
+  data,
+  logs,
+  connections.
+
+
+
+% DATA %
+
+data -->
+  {
+    Content =
+      '<red wine> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <wine> .\c
+       <white wine> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <wine> .\c
+       <wine> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <beverage> .\c
+       <beverage> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <food> .\c
+       <food> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <consumable> .\c
+       <liquid> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <beverage> .'
+  },
   html(
-    div([class='pure-u-1-3',id=left],
-      div([class=['grid-example','pure-g-r'],id=container], [
-        div(class='pure-u-1-2', div(class='l-box', \sidebar)),
-        div(class='pure-u-1-2', div(class='l-box', \history)),
-        div(class='pure-u-1-2', div(class='l-box', \'status-message'))
-      ])
-    )
-  ).
-
-right -->
-  html(
-    div([class='pure-u-2-3',id=main],
-      div(class=content, [\graph,\load_screen])
-    )
-  ).
-
-
-
-
-
-algorithm_controls -->
-  html(
-    div(id=algorithmControls, [
-      input([id=step,type=button,value=step]),
-      input([id=animate,type=button,value=animate]),
-      label([class=animationSpeed,for=speedSlider], 'speed: '),
-      input([
-        class=animationSpeed,
-        id=speedSlider,
-        max='2010',
-        min='10',
-        step='200',
-        type=range
+    div(id=data, [
+      form([class='pure-form',id=input], [
+        textarea([cols='60',id=inputN3,rows='4'], Content),
+        fieldset([class='pure-group',id=generateOptions], [
+          legend('Auto generate'),
+          button([class='pure-button',id=generate], 'Generate Graph'),
+          button([class='pure-button',id=cancelGenerate], 'Cancel'),
+          input([class='pure-input-1-2',id=triplesToGenerate,placeholder='50',type=text]),
+          button([class='pure-button',id=generateData], 'Randomly Generate Data'),
+          input([class='pure-input-1-2',id=namespaceToAdd,placeholder='Namespace URI',type=text]),
+          button([class='pure-button',id=addNamespace], 'Add namespace')
+        ]),
+        div(class=[fileUpload,'pure-button','pure-button-primary'], [
+          span('Upload'),
+          input([class=upload,id=files,onchange='loadFiles(this.files)',type=file])
+        ])
       ]),
-      input([id=run,type=button,value=run])
+      div(id=result, [])
     ])
   ).
 
-graph -->
-  html(div(id=graph, [])).
 
-history -->
-  html(div(id=history, [])).
 
-input -->
+% OPTIONS %
+
+options -->
   html(
-    div(id=input,
-      textarea(id=inputN3, '
-        <red wine> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <wine> .\c
-        <white wine> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <wine> .\c
-        <wine> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <beverage> .\c
-        <beverage> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <food> .\c
-        <food> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <consumable> .\c
-        <liquid> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <beverage> .
-      ')
-    )
-  ).
-
-load_screen -->
-  html(
-    div(id=loadscreen,
-      form([class=['pure-form','pure-form-aligned'],id=options], [
-        input([id=hideOptions,type=button,value='▲']),
+    div(id=all_options,
+      form(class=['pure-form','pure-form-aligned'], [
+        legend('Username'),
         fieldset(class='pure-group',
           input([class='pure-input-1-2',id=userID,placeholder='Username',type=text])
         ),
-        %fieldset(class='pure-group', [
-        %  button([class='pure-button',id=load], 'Paste RDF'),
-        %  button([class='pure-button',id=generate], 'Generate Graph'),
-        %  button([class='pure-button',id=saveFile], 'Save to File')
-        %]),
         legend('Experiment'),
         fieldset(class='pure-group', [
           button([class='pure-button',id=loadExperiment],'Load Experiment'),
@@ -325,68 +322,71 @@ load_screen -->
     )
   ).
 
-sidebar -->
+
+
+% LOGS %
+
+logs -->
   html(
-    div(id=sidebar, [
-      input([id=showOptions,type=button,value='▼']),
-      p(id=ownerID, []),
-      input([id=connectID,placeholder='connect ID',type=text]),
-      input([id=connect,type=button,value=connect]),
-      div(id=friendsList, []),
-      input([id=selectAllFriends,type=button,value='select all']),
-      input([id=deselectAllFriends,type=button,value='deselect all']),
-      br([]),
-      br([]),
-      %input([id=requestList,type=button,value='request nodes list']),
-      input([
-        id=requestHostedDatasets,
-        type=button,
-        value='request hosted datasets'
-      ]),
-      input([id=sendScouts,type=button,value='send scouts']),
-      br([]),
-      br([]),
-      \algorithm_controls
+    div(id=logs, [
+      form([class=['pure-form','pure-form-stacked'],id='status-message'],
+        fieldset(class='pure-control-group', [
+          legend('A Stacked Form'),
+          label(id='sm-1', ''),
+          label([for='sm-2'], 'Average cycle time: '),
+          label(id='sm-2', '0'),
+          label([for='sm-s'], 'Scouts: '),
+          label(id='sm-s', '0'),
+          label([for='sm-f'], 'Foragers: '),
+          label(id='sm-f', '0'),
+          label([for='sm-n'], 'Nurse bees: '),
+          label(id='sm-n', '0')
+        ])
+      ),
+      div(id=history, [])
     ])
   ).
 
-'status-message' -->
+
+
+% CONNECTIONS %
+
+connections -->
   html(
-    span(id='status-message', [
-      span(id='sm-1', []),
-      br([]),
-      'Average cycle time: ',
-      span(id='sm-2', '0'),
-      br([]),
-      'Scouts: ',
-      span(id='sm-s', '0'),
-      br([]),
-      'Foragers: ',
-      span(id='sm-f', '0'),
-      br([]),
-      'Nurse bees: ',
-      span(id='sm-n', '0'),
-      br([])
-    ])
+    div([class='pure-u',id=connections],
+      form(class='pure-form', [
+        fieldset(class='pure-group', [
+          legend('Connect'),
+          input([class='pure-input-1-2',id=connectID,placeholder='Connect to user ID',type=text]),
+          button([class='pure-button',id=connect], 'Connect')
+        ]),
+        fieldset(class='pure-group', [
+          legend('Select'),
+          div(id=friendsList, []),
+          button([class='pure-button',id=selectAllFriends], 'Select all'),
+          button([class='pure-button',id=deselectAllFriends], 'Deselect all')
+        ]),
+        fieldset(class='pure-group', [
+          legend('Request'),
+          button([class='pure-button',id=requestHostedDatasets], 'Request hosted datasets'),
+          button([class='pure-button',id=sendScouts], 'Send scouts')
+        ]),
+        fieldset([class='pure-group',id=algorithmControls], [
+          legend('Simulate'),
+          button([class='pure-button',id=step], 'Step'),
+          button([class='pure-button',id=animate], 'Animate'),
+          label([class=animationSpeed,for=speedSlider], 'speed: '),
+          input([
+            class=animationSpeed,
+            id=speedSlider,
+            max='2010',
+            min='10',
+            step='200',
+            type=range
+          ]),
+          button([class='pure-button',id=run], 'Run')
+        ])
+      ])
+    )
   ).
 
-topbar -->
-  html(
-    div(id=topbar, [
-      input([id=load,type=button,value='Paste RDF']),
-      span(id=generateOptions, [
-        button([class='pure-button',id=generate], 'Generate Graph'),
-        button([class='pure-button',id=cancelGenerate], 'Cancel'),
-        input([class='pure-input-1-2',id=triplesToGenerate,placeholder='50',type=text]),
-        button([class='pure-button',id=generateData], 'Randomly Generate Data'),
-        input([class='pure-input-1-2',id=namespaceToAdd,placeholder='Namespace URI',type=text]),
-        button([class='pure-button',id=addNamespace], 'Add namespace')
-      ]),
-      input([id=files,onchange='loadFiles(this.files)',type=file]),
-      % accept="text/plain, text/xml, application/xml, application/rdf+xml"
-      % application/json
-      % <input type="text" id="doData" />
-      % <input type="button" id="do" value="do" />
-      div(id=result, [])
-    ])
-  ).

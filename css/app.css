@@ -1,24 +1,115 @@
-#loadscreen {
-  display: none;
+/* File open button. */
+
+.fileUpload {
+  position: relative;
+  overflow: hidden;
+  margin: 10px;
+}
+.fileUpload input {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0;
+  padding: 0;
+  font-size: 20px;
+  cursor: pointer;
+  opacity: 0;
+  filter: alpha(opacity=0);
+}
+
+
+
+#pull {
+  background: none repeat scroll 0 0 #333333;
+  border-radius: 0px 0px 5px 5px;
+  bottom: 10%;
+  height: 10;
+  left: 25%;
+  position: absolute;
+  right: 25%;
+  top: 0%;
+  width: 50%;
   z-index: 2;
 }
 
-/* wider than screen due to padding */
-#inputN3 {
+#pull_button1 {
+  left: 20%;
+  position: absolute;
+  top: 0%;
+}
+
+#pull_button2 {
+  left: 40%;
+  position: absolute;
+  top: 0%;
+}
+
+#pull_button3 {
+  left: 55%;
+  position: absolute;
+  top: 0%;
+}
+
+#pull_button4 {
+  left: 70%;
+  position: absolute;
+  top: 0%;
+}
+
+#pull_content {
   display: none;
+  overflow: auto;
+}
+
+#all_options {
+  display: none;
+}
+
+#all_options form {
+  margin-bottom: 25px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 50px;
+  width: 80%;
+}
+
+#data {
+  display: none;
+  margin-bottom: 25px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 50px;
+  width: 95%;
+}
+
+#logs {
+  display: none;
+  margin-bottom: 25px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 50px;
+  width: 95%;
+}
+
+#connections {
+  display: none;
+  margin-bottom: 25px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 50px;
+  width: 95%;
+}
+
+#all_options form legend {
+  color: #FFFFFF;
 }
 
 #topbar {
   width: 100%;
 }
 
-#generateOptions      { display: none; }
 #saveFile             { display: none; }
 #saveExperiment       { display: none; }
-
-#sidebar {
-  z-index: 1;
-}
 
 #showOptions, #hideOptions { float: right; }
 #ownerID              { padding: 15px 5px; font-weight: bold; color: #fff; }

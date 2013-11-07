@@ -55,7 +55,7 @@ $(function () {
   });
 
   if (typeof session == 'undefined' || !session.config || !config.skipLoadScreen) {
-    $('#loadscreen').show();
+    $('#options').show();
   }
   setMonitorEnabled(config.monitorEnabled);
 
@@ -88,8 +88,8 @@ $(function () {
   $(document).keyup(function(e) {
     // Close the settings page and data input panel (in that order), and remove cursor from new friend field
     if (e.keyCode == 27) {    // Esc
-      if ($('#loadscreen').css('display') != 'none') {
-        $('#loadscreen').hide();
+      if ($('#options').css('display') != 'none') {
+        $('#options').hide();
       } else {
         hideLoadOptions();
       }
@@ -124,7 +124,7 @@ $(function () {
 
       // Toggle settings page
       if (e.keyCode == 79) {  // O
-        ($('#loadscreen').css('display') == 'none') ? $('#loadscreen').show() : $('#loadscreen').hide();
+        ($('#options').css('display') == 'none') ? $('#options').show() : $('#options').hide();
       }
 
       // Start animating algorithm
@@ -178,9 +178,9 @@ function loadFiles(files) {
     if (evt.target.readyState == FileReader.DONE) {
       var content = evt.target.result;
       generateGraph(content);
-      $('#files, #load').hide();
+      $('#files').hide();
       $('#saveFile').show();
-      $('#loadscreen').hide();
+      $('#options').hide();
     }
   };
 }
@@ -212,20 +212,25 @@ function loadModule(src, callback) {
   document.getElementsByTagName("head")[0].appendChild(script);
 }
 
+function hidePullover() {
+  $('#pull').animate({height: 10}, 500);
+  $('#pull_content').hide();
+  $('#all_options').hide();
+  $('#data').hide();
+  $('#logs').hide();
+  $('#connections').hide();
+}
+
 function showLoadOptions() {
-  $('#sm-1').html('');
-  $('#inputN3').show();
-  $('#load').hide();
-  $('#generateOptions').show();
-  $('#inputN3').animate({ height: '250px' }, 200);
+  $('#pull').animate({height: 550}, 500);
+  $('#pull_content').show();
+  $('#data').show();
+//  $('#sm-1').html('');
 }
 
 function hideLoadOptions() {
-  if ($('#inputN3').css('height') != '0px')
-    $('#inputN3').animate({ height: '0px' }, 150, 'linear', function() { $('#inputN3').hide(); });
-  $('#sm-1').html('');
-  $('#generateOptions').hide();
-  $('#load').show();
+  hidePullover();
+//  $('#sm-1').html('');
 }
 
 function generateGraph(data) {
@@ -753,3 +758,4 @@ function addTriplesFromReturnedForagers(data) {
 function handleDeniedRequest(data) {
   console.log('Request denied by ' + data.sender + '.'); // include ready to use 'why denied message' ?
 }
+

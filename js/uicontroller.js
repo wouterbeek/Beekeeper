@@ -1,16 +1,54 @@
 $(function () {
   $('#showOptions').click(function() {
-    $('#loadscreen').show();
+    $('#options').show();
   });
 
   $('#hideOptions').click(function(){
-    $('#loadscreen').hide();
+    $('#options').hide();
   });
 
-  $('#load').click(function() {
-    showLoadOptions();
+  $('#pull_button1').click(function() {
+    if ($('#all_options').css("display") == "block") {
+      hidePullover();
+    } else {
+      hidePullover();
+      $('#pull').animate({height: 1250});
+      $('#pull_content').show();
+      $('#all_options').show();
+    }
   });
 
+  $('#pull_button2').click(function() {
+    if ($('#data').css("display") == "block") {
+      hidePullover();
+    } else {
+      hidePullover();
+      showLoadOptions();
+    }
+  });
+
+  $('#pull_button3').click(function() {
+    if ($('#logs').css("display") == "block") {
+      hidePullover();
+    } else {
+      hidePullover();
+      $('#pull').animate({height: 600});
+      $('#pull_content').show();
+      $('#logs').show();
+    }
+  });
+
+  $('#pull_button4').click(function() {
+    if ($('#connections').css("display") == "block") {
+      hidePullover();
+    } else {
+      hidePullover();
+      $('#pull').animate({height: 600});
+      $('#pull_content').show();
+      $('#connections').show();
+    }
+  });
+  
   $('#generate').click(function() {
     hideLoadOptions();
     generateGraph($('#inputN3').val());
