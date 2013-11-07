@@ -28,7 +28,9 @@ $(function () {
   $('#ownerID').html(config.ownerID);
   
   m.when('p2p:ownOpen', function(id) {
-    // If Connect On Load enabled, wait for 'connection with friend open' callback before connecting to the next
+    // If Connect On Load enabled,
+    // wait for 'connection with friend open' callback
+    // before connecting to the next
     var CONfriends = [];
     var CONindex = 0;
 
@@ -491,14 +493,14 @@ function addFriendElement(id) {
 }
 
 function removeFriend(id) {
-  // ask for confirmation?
-  if (config.friends[id] && confirm('Are you sure you want to remove ' + id + ' from the list?')) {
+  // Ask for confirmation.
+  //&& confirm('Are you sure you want to remove ' + id + ' from the list?')
+  if (config.friends[id]) {
     p2p.close(id);
     $('#' + id).parent().remove();
     delete config.friends[id];
   }
 
-  //
   // if ($('.friendsList').length === 0) {
   //   $('.filler').show();
   // }

@@ -10,9 +10,16 @@ var easy_setup = (function() {
     config.requestNamespacesOnLoad = true;
     $('#requestNamespacesOnLoad').get(0).checked = config.requestNamespacesOnLoad;
     
-    addToHostedNamespaces(config.ownerID);
+    $('#namespaceToAdd').val(config.ownerID);
+    $('#addNamespace').click();
+    //addToHostedNamespaces(config.ownerID);
     
-    generateGraph(dataGenerator.generate(75));
+    // Set the number of triples.
+    $('#triplesToGenerate').val(100)
+    // Generate a dataset.
+    $('#generateData').click();
+    // Generate the graph
+    $('#generate').click();
     
     $('#animate').click();
     $('#speedSlider').val(2010);

@@ -23,5 +23,6 @@ load_bk:-
   
   assert(user:file_search_path(lib, bk(lib))),
   
-  use_module(bk(bk_web)).
+  use_module(bk(bk_web)),
+  use_module(bk(how)).
 

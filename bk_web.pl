@@ -19,7 +19,7 @@ The Web interface for the beekeeper project.
 :- use_module(server(app_server)).
 :- use_module(server(web_modules)).
 
-:- http_handler(root(bk), bk, [prefix,priority(100)]).
+:- http_handler(root(bk), bk, [prefix,priority(1)]).
 
 % /css
 :- db_add_novel(http:location(css, root(css), [])).
@@ -60,7 +60,7 @@ The Web interface for the beekeeper project.
 :- html_resource(js('visualization.js'), []).
 :- html_resource(js('zepto.min.js'), []).
 
-:- web_module_add('Beekeeper', bk_web, bk).
+:- web_module_add('Run DataHives', bk_web, bk).
 
 :- multifile(user:head//2).
 :- multifile(user:body//2).
@@ -134,10 +134,10 @@ bk(_Request):-
 user:body(bk_style, _Content) -->
   html(
     body([
-      div([class='pure-g-r'], [
+      div(class='pure-g-r', [
         div(class='pure-u',
           div(class=['pure-menu','pure-menu-open','pure-menu-horizontal'], [
-            a([class='pure-menu-heading',href='/bk'], 'DataHives'),
+            a([class='pure-menu-heading',href='/how'], 'How does DataHives work?'),
             ul([
               li(id=pull_data, button(class='pure-button', '▲ Data')),
               li(id=pull_sharing, button(class='pure-button', '▲ Sharing')),
