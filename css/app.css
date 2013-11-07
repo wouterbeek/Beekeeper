@@ -71,12 +71,9 @@ span.option           { margin-left: 2px; float: right; }
   overflow: scroll;
 }
 
-#algorithmControls, .animationSpeed { display: none; }
-#speedSlider          { width: 100px; height: 10px; }
-
 #graph                {  } /*clear: both;*/
 
-svg                   { background: #FFF; margin: 20px; }
+svg                   { background: #FFF; }
 path.link             { stroke: grey; }
 path.marker           { fill: grey; }
 path.locallyInferred  { stroke-dasharray: 2,2; stroke: red; }

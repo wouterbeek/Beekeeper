@@ -134,7 +134,7 @@ bk(_Request):-
 user:body(bk_style, _Content) -->
   html(
     body([
-      div([class='pure-g-r',id=layout], [
+      div([class='pure-g-r'], [
         div(class='pure-u',
           div(class=['pure-menu','pure-menu-open','pure-menu-horizontal'], [
             a([class='pure-menu-heading',href='/bk'], 'DataHives'),
@@ -391,13 +391,15 @@ sharing -->
 simulation -->
   html(
     div([class=some_pull_content,id=simulation],
-      form(class='pure-form',
-        fieldset([class='pure-group',id=algorithmControls], [
-          legend('Simulate'),
+      form(class='pure-form', [
+        fieldset(class='pure-group', [
+          legend('Simulation controls'),
           button([class='pure-button',id=step], 'Step'),
           button([class='pure-button',id=animate], 'Animate'),
-          button([class='pure-button',id=run], 'Run'),
-          label([class=animationSpeed,for=speedSlider], 'speed: '),
+          button([class='pure-button',id=run], 'Run')
+        ]),
+        fieldset(class='pure-group', [
+          legend('Simulation speed'),
           input([
             class=animationSpeed,
             id=speedSlider,
@@ -408,6 +410,7 @@ simulation -->
             type=range
           ])
         ])
-      )
+      ])
     )
   ).
+

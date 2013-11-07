@@ -315,13 +315,6 @@ m.when('rdf:loaded', function(data) {
 //   // console.log(data.inferredEdges);
 });
 
-m.when('swm:initialized', function() { 
-  $('#algorithmControls').show();
-  $('#step').show();
-  $('#animate').show();
-  $('#run').show();
-});
-
 m.when('swm:sctsSentTo', function(scouts, receivers) {
   receivers.forEach(function(receiver) {
     monitor('Sent ' + scouts.length + ' scout' + ((scouts.length == 1) ? '' : 's') + ' to ' + receiver + '.');
