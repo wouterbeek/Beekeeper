@@ -66,6 +66,7 @@ $(function () {
   
   $('#generate').click(function() {
     generateGraph($('#inputN3').val());
+    hidePullover();
   });
   
   $('#generateData').click(function() {

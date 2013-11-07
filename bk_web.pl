@@ -202,23 +202,31 @@ data -->
     div([class=some_pull_content,id=data], [
       form([class='pure-form',id=input], [
         fieldset(class='pure-group', [
-          legend('Graph contents'),
+          legend('Data sample'),
           textarea([cols='60',id=inputN3,rows='4'], Content)
         ]),
         fieldset([class='pure-group',id=generateOptions], [
-          legend('Auto generate'),
-          button([class='pure-button',id=generate], 'Generate Graph'),
-          input([style='display:inline-block;',id=triplesToGenerate,placeholder='50',type=text]),
+          legend('Generated data'),
+          input([style='display:inline-block;',id=triplesToGenerate,placeholder='Number of triples',type=text]),
           button([class='pure-button',id=generateData], 'Randomly Generate Data')
         ]),
         fieldset(class='pure-group', [
-          legend('Namespaces'),
+          legend('Local data'),
+          div(class=[fileUpload,'pure-button'], [
+            span('Open file ...'),
+            input([class=upload,id=files,onchange='loadFiles(this.files)',type=file])
+          ])
+        ]),
+        fieldset(class='pure-group', [
+          legend('Register namespaces'),
           input([style='display:inline-block;',id=namespaceToAdd,placeholder='Namespace URI',type=text]),
           button([class='pure-button',id=addNamespace], 'Add namespace')
         ]),
-        div(class=[fileUpload,'pure-button','pure-button-primary'], [
-          span('Upload'),
-          input([class=upload,id=files,onchange='loadFiles(this.files)',type=file])
+        fieldset(class='pure-group', [
+          legend('Confirm'),
+          button([class=['pure-button','pure-button-primary'],id=generate],
+            'Generate graph'
+          )
         ])
       ]),
       div(id=result, [])
