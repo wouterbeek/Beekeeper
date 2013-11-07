@@ -26,7 +26,6 @@ $(function () {
 
   p2p.setup(config.ownerID);
   $('#ownerID').html(config.ownerID);
-  $('#userID').html(config.ownerID);
   
   m.when('p2p:ownOpen', function(id) {
     // If Connect On Load enabled, wait for 'connection with friend open' callback before connecting to the next
@@ -216,10 +215,11 @@ function hidePullover() {
   $('#pull').animate({height: 10}, 500);
   $('#pull').animate({width: 10}, 500);
   $('#pull_content').hide();
-  $('#all_options').hide();
   $('#data').hide();
+  $('#sharing').hide();
+  $('#simulation').hide();
+  $('#all_options').hide();
   $('#logs').hide();
-  $('#connections').hide();
 }
 
 function showLoadOptions() {

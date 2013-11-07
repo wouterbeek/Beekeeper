@@ -134,20 +134,26 @@ bk(_Request):-
 user:body(bk_style, _Content) -->
   html(
     body([
-      div(class='pure-g-r',
-        div([class='pure-u-1',id=pull], [
-          div(class=['pure-menu','pure-menu-open','pure-menu-horizontal'],
+      div([class='pure-g-r',id=layout], [
+        div(class='pure-u',
+          div(class=['pure-menu','pure-menu-open','pure-menu-horizontal'], [
+            a([class='pure-menu-heading',href='/bk'], 'DataHives'),
             ul([
-              li(id=pull_button1, button(class='pure-button', '▲ Options')),
-              li(id=pull_button2, button(class='pure-button', '▲ Data')),
-              li(id=pull_button3, button(class='pure-button', '▲ Logs')),
-              li(id=pull_button4, button(class='pure-button', '▲ Connections'))
+              li(id=pull_data, button(class='pure-button', '▲ Data')),
+              li(id=pull_sharing, button(class='pure-button', '▲ Sharing')),
+              li(id=pull_simulation, button(class='pure-button', '▲ Simulation')),
+              li(id=pull_options, button(class='pure-button', '▲ Options')),
+              li(id=pull_logs, button(class='pure-button', '▲ Logs'))
             ])
+          ])
+        ),
+        div([class='pure-u-1',id=main], [
+          div([class='pure-u-1',id=pull],
+            div(id=pull_content, [\data,\sharing,\simulation,\options,\logs])
           ),
-          \pull_content
+          div([class='pure-u-1',id=graph], [])
         ])
-      ),
-      div(class='pure-g-r', div([class='pure-u-1',id=graph], [])),
+      ]),
       \at_end
     ])
   ).
@@ -177,13 +183,6 @@ user:head(bk_style, _Content) -->
       %\html_requires(js('zepto.min.js'))
     ])
   ).
-
-
-
-% PULL %
-
-pull_content -->
-  html(div(id=pull_content, [\options,\data,\logs,\connections])).
 
 
 
@@ -234,10 +233,6 @@ options -->
   html(
     div([class=some_pull_content,id=all_options],
       form(class=['pure-form','pure-form-aligned'], [
-        fieldset(class='pure-group', [
-          legend('Username'),
-          label(id=userID, '')
-        ]),
         fieldset(class='pure-group', [
           legend('Experiment'),
           button([class='pure-button',id=loadExperiment],'Load Experiment'),
@@ -359,11 +354,11 @@ logs -->
 
 
 
-% CONNECTIONS %
+% SHARING %
 
-connections -->
+sharing -->
   html(
-    div([class=some_pull_content,id=connections],
+    div([class=some_pull_content,id=sharing],
       form(class='pure-form', [
         fieldset(class='pure-group', [
           legend('Owner'),
@@ -384,7 +379,19 @@ connections -->
           legend('Request'),
           button([class='pure-button',id=requestHostedNamespaces], 'Request hosted namespaces'),
           button([class='pure-button',id=sendScouts], 'Send scouts')
-        ]),
+        ])
+      ])
+    )
+  ).
+
+
+
+% SIMULATION %
+
+simulation -->
+  html(
+    div([class=some_pull_content,id=simulation],
+      form(class='pure-form',
         fieldset([class='pure-group',id=algorithmControls], [
           legend('Simulate'),
           button([class='pure-button',id=step], 'Step'),
@@ -401,7 +408,6 @@ connections -->
             type=range
           ])
         ])
-      ])
+      )
     )
   ).
-

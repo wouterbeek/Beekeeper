@@ -7,7 +7,7 @@ $(function () {
     $('#options').hide();
   });
 
-  $('#pull_button1').click(function() {
+  $('#pull_options').click(function() {
     if ($('#all_options').css("display") == "block") {
       hidePullover();
     } else {
@@ -19,7 +19,19 @@ $(function () {
     }
   });
 
-  $('#pull_button2').click(function() {
+  $('#pull_simulation').click(function() {
+    if ($('#simulation').css("display") == "block") {
+      hidePullover();
+    } else {
+      hidePullover();
+      $('#pull_content').show();
+      $('#simulation').show();
+      $('#simulation').css('width', 'auto');
+      $('#pull').css('width', 'auto');
+    }
+  });
+
+  $('#pull_data').click(function() {
     if ($('#data').css("display") == "block") {
       hidePullover();
     } else {
@@ -28,7 +40,7 @@ $(function () {
     }
   });
 
-  $('#pull_button3').click(function() {
+  $('#pull_logs').click(function() {
     if ($('#logs').css("display") == "block") {
       hidePullover();
     } else {
@@ -40,17 +52,15 @@ $(function () {
     }
   });
 
-  $('#pull_button4').click(function() {
-    if ($('#connections').css("display") == "block") {
+  $('#pull_sharing').click(function() {
+    if ($('#sharing').css("display") == "block") {
       hidePullover();
     } else {
       hidePullover();
       $('#pull_content').show();
-      $('#connections').show();
-      $('#connections').css('width', 'auto');
+      $('#sharing').show();
+      $('#sharing').css('width', 'auto');
       $('#pull').css('width', 'auto');
-      //$('#pull').animate({height: 600});
-      //$('#pull').animate({width: 600});
     }
   });
   
