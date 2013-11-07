@@ -20,7 +20,6 @@
 
 
 #pull {
-  background: none repeat scroll 0 0 #333333;
   border-radius: 0px 0px 5px 5px;
   bottom: 10%;
   height: 10;
@@ -29,52 +28,22 @@
   right: 25%;
   top: 0%;
   width: 50%;
-  z-index: 2;
 }
 
 #pull_content {
   display: none;
   overflow: auto;
+}
+
+.some_pull_content {
+  background: none repeat scroll 0 0 #333333;
+  display: none;
+  margin-bottom: 25px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 50px;
+  overflow: auto;
   text-align: center;
-}
-
-#all_options {
-  display: none;
-}
-
-#all_options form {
-  margin-bottom: 25px;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 50px;
-  width: 80%;
-}
-
-#data {
-  display: none;
-  margin-bottom: 25px;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 50px;
-  width: 95%;
-}
-
-#logs {
-  display: none;
-  margin-bottom: 25px;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 50px;
-  width: 95%;
-}
-
-#connections {
-  display: none;
-  margin-bottom: 25px;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 50px;
-  width: 95%;
 }
 
 #pull form legend {

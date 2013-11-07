@@ -2,17 +2,17 @@ var easy_setup = (function() {
   function start_setup() {
     config.easy_setup = true;
     
+    hidePullover();
+    
     config.skipLoadScreen = true;
     $('#skipOptions').get(0).checked = config.skipLoadScreen;
     
     config.requestNamespacesOnLoad = true;
     $('#requestNamespacesOnLoad').get(0).checked = config.requestNamespacesOnLoad;
     
-    $('#namespaceToAdd').val(config.ownerID);
-    $('#addNamespace').click();
+    addToHostedNamespaces(config.ownerID);
     
-    $('#inputN3').val(dataGenerator.generate($('#triplesToGenerate').val()));
-    generateGraph($('#inputN3').val());
+    generateGraph(dataGenerator.generate(75));
     
     $('#animate').click();
     $('#speedSlider').val(2010);

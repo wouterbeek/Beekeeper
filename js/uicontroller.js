@@ -45,10 +45,12 @@ $(function () {
       hidePullover();
     } else {
       hidePullover();
-      $('#pull').animate({height: 600});
-      $('#pull').animate({width: 600}, 500);
       $('#pull_content').show();
       $('#connections').show();
+      $('#connections').css('width', 'auto');
+      $('#pull').css('width', 'auto');
+      //$('#pull').animate({height: 600});
+      //$('#pull').animate({width: 600});
     }
   });
   

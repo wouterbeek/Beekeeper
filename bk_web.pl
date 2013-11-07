@@ -200,7 +200,7 @@ data -->
        <liquid> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <beverage> .'
   },
   html(
-    div(id=data, [
+    div([class=some_pull_content,id=data], [
       form([class='pure-form',id=input], [
         fieldset(class='pure-group', [
           legend('Graph contents'),
@@ -232,7 +232,7 @@ data -->
 
 options -->
   html(
-    div(id=all_options,
+    div([class=some_pull_content,id=all_options],
       form(class=['pure-form','pure-form-aligned'], [
         fieldset(class='pure-group', [
           legend('Username'),
@@ -246,7 +246,7 @@ options -->
         ]),
         fieldset(class='pure-group', [
           legend('Hosted namespaces'),
-          select([style='display:inline-block;',id=namespaces,name=namespaces], []),
+          select([style='display:inline-block;',id=namespaces], []),
           button([class='pure-button',id=addNamespace], 'Add'),
           button([class='pure-button',id=removeNamespace], 'Remove'),
           button([class='pure-button',id=currentNamespaces], 'Currently hosted namespaces')
@@ -338,7 +338,7 @@ options -->
 
 logs -->
   html(
-    div(id=logs, [
+    div([class=some_pull_content,id=logs], [
       form([class=['pure-form','pure-form-stacked'],id='status-message'],
         fieldset(class='pure-control-group', [
           legend('A Stacked Form'),
@@ -363,7 +363,7 @@ logs -->
 
 connections -->
   html(
-    div([class='pure-u',id=connections],
+    div([class=some_pull_content,id=connections],
       form(class='pure-form', [
         fieldset(class='pure-group', [
           legend('Owner'),
@@ -389,6 +389,7 @@ connections -->
           legend('Simulate'),
           button([class='pure-button',id=step], 'Step'),
           button([class='pure-button',id=animate], 'Animate'),
+          button([class='pure-button',id=run], 'Run'),
           label([class=animationSpeed,for=speedSlider], 'speed: '),
           input([
             class=animationSpeed,
@@ -396,9 +397,9 @@ connections -->
             max='2010',
             min='10',
             step='200',
+            style='display: inline-block;',
             type=range
-          ]),
-          button([class='pure-button',id=run], 'Run')
+          ])
         ])
       ])
     )
