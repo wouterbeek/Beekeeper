@@ -34,12 +34,12 @@ The Web interface for the beekeeper project.
   'http://purecss.io/combo/1.6.6?/css/main.css&/css/grids.css&/css/rainbow/baby-blue.css',
   [requires('http://yui.yahooapis.com/pure/0.3.0/pure-min.css')]
 ).
-:- html_resource(css('app.css'), [
+:- html_resource( css('app.css'), [
   requires([
     'http://yui.yahooapis.com/pure/0.3.0/pure-min.css',
     'http://purecss.io/combo/1.6.5?/css/main.css&/css/menus.css&/css/rainbow/baby-blue.css'
   ])
-).
+]).
 
 % /js
 :- db_add_novel(http:location(js, root(js), [])).
