@@ -15,14 +15,16 @@
 :- use_module(server(app_ui)).
 :- use_module(server(web_modules)).
 
-:- web_module_add('How does DataHives work?', how, how).
-
 % /img
 :- db_add_novel(http:location(img, root(img), [])).
 :- db_add_novel(user:file_search_path(img, bk(img))).
 :- http_handler(img(.), serve_files_in_directory(img), [prefix]).
 
+:- web_module_add('How does DataHives work?', how, how).
+
 :- http_handler(root(how), how, []).
+
+
 
 how(_Request):-
   reply_html_page(app_style, [], \dh_body).

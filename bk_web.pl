@@ -9,6 +9,7 @@ The Web interface for the beekeeper project.
 @version 2013/11
 */
 
+:- use_module(bk(how)).
 :- use_module(generics(db_ext)).
 :- use_module(library(http/html_head)).
 :- use_module(library(http/html_write)).
