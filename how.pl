@@ -2,25 +2,26 @@
 
 /** <module> How does DataHives work?
 
-@version 2013/11
+Web page giving a description of the DataHives project.
+
+@author Wouter Beek
+@version 2013/11-2013/12
 */
 
+:- use_module(generics(db_ext)).
 :- use_module(generics(meta_ext)).
 :- use_module(html(html_image)).
 :- use_module(library(http/html_head)).
 :- use_module(library(http/html_write)).
 :- use_module(library(http/http_dispatch)).
 :- use_module(library(http/http_path)).
-:- use_module(library(http/http_server_files)).
-:- use_module(server(app_ui)).
+:- use_module(server(app_ui)). % Uses the default application style.
 :- use_module(server(web_modules)).
 
-% /img
-:- db_add_novel(http:location(img, root(img), [])).
-:- db_add_novel(user:file_search_path(img, bk(img))).
-:- http_handler(img(.), serve_files_in_directory(img), [prefix]).
-
 :- web_module_add('How does DataHives work?', how, how).
+
+% /img
+:- db_add_novel(user:file_search_path(img, bk(img))).
 
 :- http_handler(root(how), how, []).
 

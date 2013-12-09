@@ -6,7 +6,7 @@ The Web interface for the beekeeper project.
 
 @author Wouter Beek
 @author Pepijn Kroes
-@version 2013/11
+@version 2013/11-2013/12
 */
 
 :- use_module(bk(how)).
@@ -15,37 +15,31 @@ The Web interface for the beekeeper project.
 :- use_module(library(http/html_write)).
 :- use_module(library(http/http_dispatch)).
 :- use_module(library(http/http_path)).
-:- use_module(library(http/http_server_files)).
 :- use_module(library(http/http_session)).
-:- use_module(server(app_server)).
+:- use_module(server(app_ui)).
 :- use_module(server(web_modules)).
 
 :- http_handler(root(bk), bk, [prefix,priority(1)]).
 
 % /css
-:- db_add_novel(http:location(css, root(css), [])).
 :- db_add_novel(user:file_search_path(css, bk(css))).
-:- http_handler(css(.), serve_files_in_directory(css), [prefix]).
-:- html_resource('http://yui.yahooapis.com/pure/0.3.0/pure-min.css', []).
 :- html_resource(
   'http://purecss.io/combo/1.6.5?/css/main.css&/css/menus.css&/css/rainbow/baby-blue.css',
-  [requires('http://yui.yahooapis.com/pure/0.3.0/pure-min.css')]
+  [requires(css('pure-min-0.3.0.css'))]
 ).
 :- html_resource(
-  'http://purecss.io/combo/1.6.6?/css/main.css&/css/grids.css&/css/rainbow/baby-blue.css',
-  [requires('http://yui.yahooapis.com/pure/0.3.0/pure-min.css')]
+  css('app.css'),
+  [
+    requires([
+      css('pure-min-0.3.0.css'),
+      'http://purecss.io/combo/1.6.5?/css/main.css&/css/menus.css&/css/rainbow/baby-blue.css'
+    ])
+  ]
 ).
-:- html_resource( css('app.css'), [
-  requires([
-    'http://yui.yahooapis.com/pure/0.3.0/pure-min.css',
-    'http://purecss.io/combo/1.6.5?/css/main.css&/css/menus.css&/css/rainbow/baby-blue.css'
-  ])
-]).
 
 % /js
-:- db_add_novel(http:location(js, root(js), [])).
 :- db_add_novel(user:file_search_path(js, bk(js))).
-:- http_handler(js(.), serve_files_in_directory(js), [prefix]).
+% @tbd Figure out dependencies.
 :- html_resource(js('app.js'), []).
 :- html_resource(js('behavior.js'), []).
 :- html_resource(js('configuration.js'), []).
@@ -160,11 +154,12 @@ user:body(bk_style, _Content) -->
     ])
   ).
 
+% @tbd The JS cannot yet be loaded inside the HTML head.
 user:head(bk_style, _Content) -->
   html(
     head([
       title('Beekeeper (DataHives Event 1)'),
-      \html_requires('http://yui.yahooapis.com/pure/0.3.0/pure-min.css'),
+      \html_requires(css('pure-min-0.3.0.css')),
       \html_requires('http://purecss.io/combo/1.6.5?/css/main.css&/css/menus.css&/css/rainbow/baby-blue.css'),
       \html_requires('http://purecss.io/combo/1.6.6?/css/main.css&/css/grids.css&/css/rainbow/baby-blue.css'),
       \html_requires(css('app.css'))
