@@ -203,19 +203,29 @@ data -->
         ]),
         fieldset([class='pure-group',id=generateOptions], [
           legend('Generated data'),
-          input([style='display:inline-block;',id=triplesToGenerate,placeholder='Number of triples',type=text]),
-          button([class='pure-button',id=generateData], 'Randomly Generate Data')
+          input([
+            id=triplesToGenerate,
+            placeholder='Number of triples',
+            type=text
+          ]),
+          button([class='pure-button',id=generateData],
+            'Randomly Generate Data')
         ]),
         fieldset(class='pure-group', [
           legend('Local data'),
           div(class=[fileUpload,'pure-button'], [
             span('Open file ...'),
-            input([class=upload,id=files,onchange='loadFiles(this.files)',type=file])
+            input([
+              class=upload,
+              id=files,
+              onchange='loadFiles(this.files)',
+              type=file
+            ])
           ])
         ]),
         fieldset(class='pure-group', [
           legend('Register namespaces'),
-          input([style='display:inline-block;',id=namespaceToAdd,placeholder='Namespace URI',type=text]),
+          input([id=namespaceToAdd,placeholder='Namespace URI',type=text]),
           button([class='pure-button',id=addNamespace], 'Add namespace')
         ]),
         fieldset(class='pure-group', [
@@ -240,35 +250,37 @@ options -->
         fieldset(class='pure-group', [
           legend('Experiment'),
           button([class='pure-button',id=loadExperiment],'Load Experiment'),
-          button([class='pure-button',id=saveExperiment], 'Save Experiment Data'),
+          button([class='pure-button',id=saveExperiment],
+            'Save Experiment Data'),
           button([class='pure-button',id=saveFile], 'Save Graph to File')
         ]),
         fieldset(class='pure-group', [
           legend('Hosted namespaces'),
-          select([style='display:inline-block;',id=namespaces], []),
+          select([id=namespaces], []),
           button([class='pure-button',id=addNamespace], 'Add'),
           button([class='pure-button',id=removeNamespace], 'Remove'),
-          button([class='pure-button',id=currentNamespaces], 'Currently hosted namespaces')
+          button([class='pure-button',id=currentNamespaces],
+            'Currently hosted namespaces')
         ]),
-        fieldset(class='pure-group', [
+        fieldset(class='pure-control-group', [
           legend('On startup'),
           label([class='pure-checkbox',for=skipOptions], [
-            input([id=skipOptions,style='display:inline;margin-right:7.5px;top:0;',type=checkbox]),
+            input([id=skipOptions,type=checkbox]),
             'Skip this screen on startup'
           ]),
           label([class='pure-checkbox',for=connectOnLoad], [
-            input([id=connectOnLoad,style='display:inline;margin-right:7.5px;top:0;',type=checkbox]),
+            input([id=connectOnLoad,type=checkbox]),
             'Automatically connect to friends'
           ]),
           label([class='pure-checkbox',for=requestNamespacesOnLoad], [
-            input([id=requestNamespacesOnLoad,style='display:inline;margin-right:7.5px;top:0;',type=checkbox]),
+            input([id=requestNamespacesOnLoad,type=checkbox]),
               'Automatically request a hosted namespaces after connecting'
           ])
         ]),
-        fieldset(class='pure-group', [
+        fieldset(class='pure-control-group', [
           legend('On exit'),
           label([class='pure-checkbox',for=configLocalStorage], [
-            input([id=configLocalStorage,style='display:inline;margin-right:7.5px;top:0;',type=checkbox]),
+            input([id=configLocalStorage,type=checkbox]),
             'Save configuration to local storage'
           ]),
           button(
@@ -276,40 +288,40 @@ options -->
             'Clear from local storage'
           ),
           label([class='pure-checkbox',for=graphlocalstorage], [
-            input([disabled=disabled,id=graphlocalstorage,style='display:inline;margin-right:7.5px;top:0;',type=checkbox]),
+            input([disabled=disabled,id=graphlocalstorage,type=checkbox]),
             'Save graph(s) to local storage'
           ])
         ]),
-        fieldset(class='pure-group', [
+        fieldset(class='pure-control-group', [
           legend('Algorithm'),
           label([class='pure-checkbox',for=linksetsEnabled], [
-            input([id=linksetsEnabled,style='display:inline;margin-right:7.5px;top:0;',type=checkbox]),
+            input([id=linksetsEnabled,type=checkbox]),
             'Linksets enabled'
           ])
         ]),
         legend('User Interface'),
-        fieldset(class='pure-group',
+        fieldset(class='pure-control-group',
           label([class='pure-checkbox',for=monitorEnabled], [
-            input([id=monitorEnabled,style='display:inline;margin-right:7.5px;top:0;',type=checkbox]),
+            input([id=monitorEnabled,type=checkbox]),
             'Show monitor'
           ])
         ),
-        fieldset(class='pure-group', [
+        fieldset(class='pure-control-group', [
           legend('Visualization'),
           label([class='pure-checkbox',for=visEnabled], [
-            input([id=visEnabled,style='display:inline;margin-right:7.5px;top:0;',type=checkbox]),
+            input([id=visEnabled,type=checkbox]),
             'Show visualization'
           ]),
           label([class='pure-checkbox',for=showLabels], [
-            input([class=visOption,id=showLabels,style='display:inline;margin-right:7.5px;top:0;',type=checkbox]),
+            input([class=visOption,id=showLabels,type=checkbox]),
             'Show labels'
           ]),
           label([class='pure-checkbox',for=showMarkers], [
-            input([class=visOption,id=showMarkers,style='display:inline;margin-right:7.5px;top:0;',type=checkbox]),
+            input([class=visOption,id=showMarkers,type=checkbox]),
             'Show markers'
           ]),
           label([class='pure-checkbox',for=staticGraph], [
-            input([class=visOption,id=staticGraph,style='display:inline;margin-right:7.5px;top:0;',type=checkbox]),
+            input([class=visOption,id=staticGraph,type=checkbox]),
             'Static graph'
           ])
         ]),
@@ -319,7 +331,6 @@ options -->
           input([
             class=visOption,
             id=staticGraphIterations,
-            style='display:inline-block;',
             type=text,
             value='1000'
           ])
@@ -370,7 +381,7 @@ sharing -->
         ]),
         fieldset(class='pure-group', [
           legend('Connect'),
-          input([style='display:inline-block;',id=connectID,placeholder='Connect to user ID',type=text]),
+          input([id=connectID,placeholder='Connect to user ID',type=text]),
           button([class='pure-button',id=connect], 'Connect')
         ]),
         fieldset(class='pure-group', [
@@ -381,7 +392,8 @@ sharing -->
         ]),
         fieldset(class='pure-group', [
           legend('Request'),
-          button([class='pure-button',id=requestHostedNamespaces], 'Request hosted namespaces'),
+          button([class='pure-button',id=requestHostedNamespaces],
+            'Request hosted namespaces'),
           button([class='pure-button',id=sendScouts], 'Send scouts')
         ])
       ])
@@ -410,7 +422,6 @@ simulation -->
             max='2010',
             min='10',
             step='200',
-            style='display: inline-block;',
             type=range
           ])
         ])
