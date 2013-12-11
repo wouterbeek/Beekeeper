@@ -15,7 +15,6 @@ The Web interface for the beekeeper project.
 :- use_module(library(http/html_write)).
 :- use_module(library(http/http_dispatch)).
 :- use_module(library(http/http_path)).
-:- use_module(library(http/http_session)).
 :- use_module(server(app_ui)).
 :- use_module(server(web_modules)).
 
