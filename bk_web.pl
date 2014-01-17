@@ -55,7 +55,7 @@ The Web interface for the beekeeper project.
 :- html_resource(js('visualization.js'), []).
 :- html_resource(js('zepto.min.js'), []).
 
-:- web_module_add('Run DataHives', bk_web, bk).
+:- initialization(web_module_add('Run DataHives', bk_web)).
 
 :- multifile(user:head//2).
 :- multifile(user:body//2).

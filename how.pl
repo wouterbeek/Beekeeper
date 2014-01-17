@@ -18,7 +18,7 @@ Web page giving a description of the DataHives project.
 :- use_module(server(app_ui)). % Uses the default application style.
 :- use_module(server(web_modules)).
 
-:- web_module_add('How does DataHives work?', how, how).
+:- initialization(web_module_add('How does DataHives work?', how)).
 
 % /img
 :- db_add_novel(user:file_search_path(img, bk(img))).
