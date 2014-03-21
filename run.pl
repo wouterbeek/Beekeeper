@@ -1,3 +1,5 @@
+#!/home/wbeek/bin/swipl
+
 % The run file for the Beekeeper project.
 
 :- initialization(run_bk).
@@ -15,14 +17,14 @@ run_bk:-
   ensure_loaded(load).
 
 load_pgc(_Project):-
-  user:file_search_path(pgc, _Spec), !.
+  user:file_search_path(pgc, _), !.
 load_pgc(Project):-
   compound_name_arguments(Spec, Project, ['PGC']),
   assert(user:file_search_path(pgc, Spec)),
   load_or_debug(pgc).
 
 load_or_debug(Project):-
-  predicate_property(user:debug_project, visible), !,
+  predicate_property(user:debug_mode, visible), !,
   compound_name_arguments(Spec, Project, [debug]),
   ensure_loaded(Spec).
 load_or_debug(Project):-

@@ -1,7 +1,7 @@
 % The load file for the Beekeeper project.
 
-:- multifile(user:project_name/1).
-user:project_name('Beekeeper').
+:- multifile(user:project/2).
+user:project('Beekeeper', 'Testbed for DataHives using bees.').
 
 :- initialization(load_bk).
 
