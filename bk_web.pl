@@ -20,6 +20,8 @@ The Web interface for the beekeeper project.
 
 :- http_handler(root(bk), bk, [prefix,priority(1)]).
 
+:- web_module_add('Run DataHives', bk).
+
 % /css
 :- db_add_novel(user:file_search_path(css, bk(css))).
 :- html_resource(
@@ -54,11 +56,6 @@ The Web interface for the beekeeper project.
 :- html_resource(js('utilities.js'), []).
 :- html_resource(js('visualization.js'), []).
 :- html_resource(js('zepto.min.js'), []).
-
-:- initialization(web_module_add('Run DataHives', bk_web)).
-
-:- multifile(user:head//2).
-:- multifile(user:body//2).
 
 
 
