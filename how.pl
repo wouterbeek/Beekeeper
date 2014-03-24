@@ -55,10 +55,10 @@ dh_body -->
       %        Actually, it still has a lot of the deficiencies \c
       %        of a traditional database environment.'),
       %\quote('The "intelligent agents" people have touted for ages will finally materialize.'),
-      \html_image(
+      \html_image_thumbnail_box(
         [style='float:right;'],
-        'Overview of a standard deployment situation for Linked Data.',
         [style='height: 10cm;'],
+        'Overview of a standard deployment situation for Linked Data.',
         'triple_store.png'
       ),
       p([
@@ -112,11 +112,11 @@ dh_body -->
         'in order to deduce new information (blue arrows) ',
         'from the graph.'
       ]),
-      \html_image(
+      \html_image_thumbnail_box(
+        [],
         [],
         'A graph with locally traversing agents (blue dots) \c
          that have made local inferences (blue arrows).',
-        [],
         'local_inference.png'
       ),
       h1(id=sharing, 'Sharing'),
@@ -125,11 +125,11 @@ dh_body -->
         'They look for knowledge that is related to knowledge ',
         'that is already present in the home graph (red arrows).'
       ]),
-      \html_image(
+      \html_image_thumbnail_box(
+        [],
         [],
         'A graph with locally traversing agents (blue dots) \c
          that have made local inferences (blue arrows).',
-        [],
         'knowledge_sharing.png'
       ),
       hr([]),
