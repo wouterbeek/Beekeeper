@@ -23,7 +23,7 @@ Web page giving a description of the DataHives project.
 :- web_module_add('How does DataHives work?', how).
 
 % /img
-:- db_add_novel(user:file_search_path(img, bk(img))).
+user:file_search_path(img, bk(img)).
 
 
 

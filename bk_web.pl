@@ -23,7 +23,7 @@ The Web interface for the beekeeper project.
 :- web_module_add('Run DataHives', bk).
 
 % /css
-:- db_add_novel(user:file_search_path(css, bk(css))).
+user:file_search_path(css, bk(css)).
 :- html_resource(
   'http://purecss.io/combo/1.6.5?/css/main.css&/css/menus.css&/css/rainbow/baby-blue.css',
   [requires(css('pure-min-0.3.0.css'))]
@@ -39,7 +39,7 @@ The Web interface for the beekeeper project.
 ).
 
 % /js
-:- db_add_novel(user:file_search_path(js, bk(js))).
+user:file_search_path(js, bk(js)).
 % @tbd Figure out dependencies.
 :- html_resource(js('app.js'), []).
 :- html_resource(js('behavior.js'), []).
