@@ -20,7 +20,7 @@ Web page giving a description of the DataHives project.
 
 :- http_handler(root(how), how, []).
 
-:- web_module_add('How does DataHives work?', how).
+user:web_module('How does DataHives work?', how).
 
 % /img
 user:file_search_path(img, bk(img)).

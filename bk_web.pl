@@ -20,7 +20,7 @@ The Web interface for the beekeeper project.
 
 :- http_handler(root(bk), bk, [prefix,priority(1)]).
 
-:- web_module_add('Run DataHives', bk).
+user:web_module('Run DataHives', bk).
 
 % /css
 user:file_search_path(css, bk(css)).
